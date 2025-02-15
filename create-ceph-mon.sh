@@ -1,31 +1,9 @@
 #!/bin/bash
 
-# Generate a new UUID for the FSID
-FSID=$(uuidgen)
-echo "Generated FSID: $FSID"
-
 # Set the cluster name and node name
 CLUSTER_NAME="ceph"
 NODE_NAME="rz-ceph-mon01"
 NODE_IP="<YOUR_IP>"
-CLUSTER_NETWORK="<YOUR_NETWORK_IP/24>"
-PUBLIC_NETWORK="<YOUR_NETWORK_IP/24>"
-
-# Create the Ceph configuration file
-cat <<EOL > /etc/ceph/$CLUSTER_NAME.conf
-[global]
-cluster network = $CLUSTER_NETWORK
-public network = $PUBLIC_NETWORK
-fsid = $FSID
-mon host = $NODE_IP
-mon initial members = $NODE_NAME
-osd pool default crush rule = -1
-
-[mon.$NODE_NAME]
-host = $NODE_NAME
-mon addr = $NODE_IP
-mon allow pool delete = true
-EOL
 
 # Generate secret keys
 ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
@@ -37,7 +15,7 @@ ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.
 ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 
 # Generate monitor map
-monmaptool --create --add $NODE_NAME $NODE_IP --fsid $FSID /etc/ceph/monmap
+monmaptool --create --add $NODE_NAME $NODE_IP /etc/ceph/monmap
 
 # Create directory for Monitor Daemon
 mkdir -p /var/lib/ceph/mon/ceph-$NODE_NAME
