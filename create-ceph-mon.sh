@@ -4,6 +4,7 @@
 CLUSTER_NAME="ceph"
 NODE_NAME="rz-ceph-mon01"
 NODE_IP="<YOUR_IP>"
+FSID=$(grep "^fsid" /etc/ceph/ceph.conf | awk {'print $NF'})
 
 # Generate secret keys
 ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
@@ -15,7 +16,7 @@ ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.
 ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 
 # Generate monitor map
-monmaptool --create --add $NODE_NAME $NODE_IP /etc/ceph/monmap
+monmaptool --create --add $NODE_NAME $NODE_IP --fsid $FSID /etc/ceph/monmap
 
 # Create directory for Monitor Daemon
 mkdir -p /var/lib/ceph/mon/ceph-$NODE_NAME
