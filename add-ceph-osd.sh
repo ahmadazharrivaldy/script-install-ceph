@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of nodes to be processed
-NODES=("ceph-osd01" "ceph-osd02")
+NODES=("rz-ceph-node01" "rz-ceph-node02" "rz-ceph-node03")
 
 # Variable for the storage device
 STORAGE_DEVICE="/dev/vdb"
