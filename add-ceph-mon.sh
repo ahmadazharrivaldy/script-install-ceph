@@ -5,9 +5,8 @@ FSID=$(grep "^fsid" /etc/ceph/ceph.conf | awk '{print $NF}')
 
 # Define nodes and their IPs
 declare -A NODES=(
-    ["ceph-mon04"]="<YOUR_IP>"
-    ["ceph-mon05"]="<YOUR_IP>"
-    ["ceph-mon06"]="<YOUR_IP>"
+    ["rz-ceph-mon02"]="<YOUR_IP>"
+    ["rz-ceph-mon03"]="<YOUR_IP>"
 )
 
 # Loop through each node
