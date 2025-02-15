@@ -22,6 +22,7 @@ for NODENAME in "${!NODES[@]}"; do
     scp /etc/ceph/ceph.conf ${NODENAME}:/etc/ceph/ceph.conf
     scp /etc/ceph/ceph.mon.keyring ${NODENAME}:/etc/ceph
     scp /etc/ceph/monmap ${NODENAME}:/etc/ceph
+    scp /etc/ceph/ceph.client.admin.keyring ${NODENAME}:/etc/ceph
 
     # Configure the Monitor Daemon on the new node
     echo "Configuring Monitor Daemon on $NODENAME..."
