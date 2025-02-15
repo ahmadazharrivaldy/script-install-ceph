@@ -6,7 +6,7 @@ echo "Generated FSID: $FSID"
 
 # Set the cluster name and node name
 CLUSTER_NAME="ceph"
-NODE_NAME="ceph-mon01"
+NODE_NAME="rz-ceph-mon01"
 NODE_IP="<YOUR_IP>"
 CLUSTER_NETWORK="<YOUR_NETWORK_IP/24>"
 PUBLIC_NETWORK="<YOUR_NETWORK_IP/24>"
